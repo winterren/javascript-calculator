@@ -1,0 +1,393 @@
+layout: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta charset="UTF-8">
+	<title>Calculator</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: #f2f2f2;
+	}
+
+	/*计算器大框架*/
+	.calc{
+		margin: 50px auto;
+		padding-top: 20px;
+		width: 350px;
+		height: 422px;
+		background-image: -webkit-linear-gradient(#DDD 0px, #FFF 3px, #DDD 5px, #DDD 435px, #ccc 440px, #DDD 450px);
+		background-image: -o-linear-gradient(#DDD 0px, #FFF 3px, #DDD 5px, #DDD 435px, #ccc 440px, #DDD 450px);
+		background-image: linear-gradient(#DDD 0px, #FFF 3px, #DDD 5px, #DDD 435px, #ccc 440px, #DDD 450px);
+		border-radius: 8px;
+		box-shadow: 3px 3px 5px #888, 0px 0px 15px #777;
+	}
+	/*显示区*/
+	.display{
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	.display input{
+		height: 45px;
+		width: 300px;
+		background: -webkit-linear-gradient(#323232, #4e4e4e);
+		background: -o-linear-gradient(#323232, #4e4e4e);
+		background: linear-gradient(#323232, #4e4e4e);
+		border: 2px solid #555;
+		border-radius: 5px;
+		font-size: 40px;
+		text-align: right;
+		padding: 2px;
+		color: #76816a;
+	}
+	.buttons{
+		padding: 0 18px 0 18px;
+	}
+	/* 按钮区 */
+	.buttons button{
+		margin: 5px 3.5px;
+		font-size: 22px;
+		color: #5e5e5d;
+		font-weight: bold;
+		width: 55px;
+		height: 55px;
+		border-radius: 5px;
+		border: 1px solid #8a8a7b;
+		background: -webkit-linear-gradient(#DCD6D0 0px, #ECE9E5 2px, #DCD6D0 4px, #C5C1BB 50px, #B5AEA6 52px, #C5C1BB 55px);
+		background: -o-linear-gradient(#DCD6D0 0px, #ECE9E5 2px, #DCD6D0 4px, #C5C1BB 50px, #B5AEA6 52px, #C5C1BB 55px);
+		background: linear-gradient(#DCD6D0 0px, #ECE9E5 2px, #DCD6D0 4px, #C5C1BB 50px, #B5AEA6 52px, #C5C1BB 55px);
+		box-shadow: 1px 1px 2px #888;
+	}
+	.buttons button:hover{
+		color: #3e3e3d;
+		background: -webkit-linear-gradient(#B5AEA6 2px, #C5C1BB 4px, #DCD6D0 50px, #C5C1BB 55px);
+		background: -o-linear-gradient(#B5AEA6 2px, #C5C1BB 4px, #DCD6D0 50px, #C5C1BB 55px);
+		background: linear-gradient(#B5AEA6 2px, #C5C1BB 4px, #DCD6D0 50px, #C5C1BB 55px);
+		box-shadow: 1px 1px 2px #888, 1px 1px 2px #B5AEA6 inset;
+		cursor: pointer;
+	}
+
+	.buttons .tri, .buttons .operator, .buttons #backspace{
+		color: #fff;
+		background: -webkit-linear-gradient(#9D9994 0px, #AEABA6 2px, #9D9994 4px, #79736D 50px, #5A5652 52px, #79736D 55px);
+		background: -o-linear-gradient(#9D9994 0px, #AEABA6 2px, #9D9994 4px, #79736D 50px, #5A5652 52px, #79736D 55px);
+		background: linear-gradient(#9D9994 0px, #AEABA6 2px, #9D9994 4px, #79736D 50px, #5A5652 52px, #79736D 55px);
+	}
+	.buttons .tri:hover, .buttons .operator:hover,  .buttons #backspace:hover{
+		color: #eee;
+		background: -webkit-linear-gradient(#5A5652 2px, #79736D 4px, #9D9994 50px, #79736D 55px);
+		background: -o-linear-gradient(#5A5652 2px, #79736D 4px, #9D9994 50px, #79736D 55px);
+		background: linear-gradient(#5A5652 2px, #79736D 4px, #9D9994 50px, #79736D 55px);
+	}
+	.buttons .col-2{
+		width: 117px;
+	}
+
+	.buttons #equal, .buttons #reset{
+		color: #fff;
+		background: -webkit-linear-gradient(#F8A452 0px, #F8EBC2 2px, #F8A452 4px, #F18C27 50px, #D47C25 52px, #F18C27 55px);
+		background: -o-linear-gradient(#F8A452 0px, #F8EBC2 2px, #F8A452 4px, #F18C27 50px, #D47C25 52px, #F18C27 55px);
+		background: linear-gradient(#F8A452 0px, #F8EBC2 2px, #F8A452 4px, #F18C27 50px, #D47C25 52px, #F18C27 55px);
+	}
+
+	.buttons #equal:hover, .buttons #reset:hover{
+		color: #eee;
+		background: -webkit-linear-gradient(#D47C25 2px, #F18C27 4px, #F8A452 50px, #F18C27 55px);
+		background: -o-linear-gradient(#D47C25 2px, #F18C27 4px, #F8A452 50px, #F18C27 55px);
+		background: linear-gradient(#D47C25 2px, #F18C27 4px, #F8A452 50px, #F18C27 55px);
+	}
+	</style>
+
+</head>
+<body>
+
+	<!-- 计算器 -->
+	<div class="calc">
+		<!-- 显示区 -->
+		<div class="display">
+			<input type="text" id="displayscreen" disabled >
+		</div>
+		<!-- 按钮区 -->
+		<div class="buttons">
+			<!-- 第1行 -->
+			<button id="reset" class="col-2">CE</button><!--
+			--><button id="equal" class="col-2">=</button><!--
+			--><button id="backspace">←</button>
+
+			<!-- 第2行 -->
+			<button class="tri">sin</button><!--
+			--><button class="num">7</button><!--
+			--><button class="num">8</button><!--
+			--><button class="num">9</button><!--
+			--><button class="operator" id="plus">+</button>
+			<!-- 第3行 -->
+			<button class="tri">cos</button><!--
+			--><button class="num">4</button><!--
+			--><button class="num">5</button><!--
+			--><button class="num">6</button><!--
+			--><button class="operator" id="minus">-</button>
+			<!-- 第4行 -->
+			<button class="tri">tan</button><!--
+			--><button class="num">1</button><!--
+			--><button class="num">2</button><!--
+			--><button class="num">3</button><!--
+			--><button class="operator" id="times">*</button>
+			<!-- 第5行 -->
+			<button class="tri">cot</button><!--
+			--><button class="num col-2">0</button><!--
+			--><button id="dot">.</button><!--
+			--><button class="operator" id="divide">/</button>
+
+	</div>
+
+
+	<script>
+	// 全局闭包，避免全局变量
+	(function(){
+		// 存储表达式的堆栈
+		var stack = [];
+		// 存储临时显示数的堆栈
+		// [0]存储临时显示数类型：isNum为数字，isOpr为符号，isEqu为等号
+		// [1]存储临时显示数数据
+		var temp = [];
+		temp[0] = "isNum";
+		temp[1] = "0";
+		// 存储是否已经是小数
+		var tempDec = false;
+
+
+		// 显示数字
+		var displayScreen = document.getElementById('displayscreen');
+		displayscreen.value = "0";
+		function displayChange(x){
+			displayscreen.value = x;
+		}
+
+
+		// 栈内计算
+		function calc(){
+			// 当堆栈存满[ 数字1, 符号, 数字2 ]时。进行运算，然后更新数字1，弹出栈底两个元素。
+			// 最终保持在[ 新数字1 ]
+			if (stack.length == 3){
+				switch (stack[1]){
+					case "+":
+						stack[0] = stack[0] + stack[2];
+						break;
+					case "-":
+						stack[0] = stack[0] - stack[2];
+						break;
+					case "*":
+						stack[0] = stack[0] * stack[2];
+						break;
+					case "/":
+						if (stack[2] == 0){
+							stack.length = 0;
+						}
+						else{
+							stack[0] = stack[0] / stack[2];
+						}
+						break;
+				}
+
+				stack.pop();
+				stack.pop();
+
+				// 除数0时显示错误
+				if (stack.length==0){
+					resetDisplay();
+					displayChange('ERROR!');
+				}
+				else{
+					// 保留10位小数精度
+					stack[0]=parseFloat((stack[0]).toFixed(10));
+					displayChange(stack[0]);
+				}
+			}
+
+		}
+		// 压入堆栈函数
+		function stackPush(){
+			switch (temp[0]){
+				case "isNum":
+					stack.push(temp[1]);
+					break;
+				case "isOpr":
+					stack.push(temp[1]);
+					break;
+				default:
+					break;
+			}
+			calc();	
+		}
+		// 重置示数
+		function resetDisplay(){
+			temp.length = 0;
+			stack.length = 0;
+			temp[0] = "isNum";
+			temp[1] = "0";
+			tempDec = false;
+			displayChange(temp[1]);
+		}
+
+		// ***** 小数点 *****
+		var dotBtn = document.getElementById("dot");
+		dotBtn.onclick = function(e){
+			if (temp[0]=="isNum" && !tempDec){
+				temp[1] = temp[1] + '.';
+				tempDec = true;
+				displayChange(temp[1]);
+			}
+		}
+
+		// ***** 数字部分 *****
+		var numBtn = document.getElementsByClassName("num");
+		function inputNum(i){
+			return function(e){
+				// 当临时显示数为数字时，对数字编辑
+				if(temp[0] == "isNum"){
+
+					temp[1] = String(temp[1]);
+					temp[1] = temp[1] + String(e.target.innerHTML);
+					// temp[1] = parseFloat(temp[1]);
+					if( (String(temp[1]).indexOf('.')==-1)||e.target.innerHTML!='0' ){
+						temp[1] = parseFloat(temp[1]);
+					}
+				}
+				// 当临时显示数为等于号，相当于一次reset
+				else if(temp[0] ==  "isEqu"){
+					temp[1] = parseFloat(e.target.innerHTML);
+					stack.pop();
+				}
+				// 当临时显示数为其他时，将其他数据先压入存储堆栈，再进行数字编辑
+				else{
+					stackPush();
+					temp[1] = parseFloat(e.target.innerHTML);
+				}
+				temp[0] = "isNum";
+				displayChange(temp[1]);
+				console.log(temp);
+				console.log(stack);
+			}
+		}
+		// 闭包处理
+		for (var i = 0; i< numBtn.length; i++){
+			numBtn[i].onclick = inputNum(i);
+		}
+
+		// ***** 运算符部分 *****
+		var oprBtn = document.getElementsByClassName("operator");
+		function inputOpr(i){
+			return function(e){
+				// 当临时显示数不为运算符时，压入堆栈
+				if (temp[0] !="isOpr") {
+					stackPush();
+				}
+				temp[0] = "isOpr";
+				temp[1] = String(e.target.innerHTML);
+				tempDec = false;
+				console.log(temp);
+				console.log(stack);
+			}
+		}
+		// 闭包处理
+		for (var i = 0; i< oprBtn.length; i++){
+			oprBtn[i].onclick = inputOpr(i);
+		}
+
+		// ***** 等于号 *****
+		var equBtn = document.getElementById("equal");
+		equBtn.onclick = function(e){
+			// 形如 "1+=" 的运算式，直接去掉+。
+			if (temp[0] == "isOpr"){
+				temp.pop();
+				temp.pop();
+			}
+			stackPush();
+			temp[0] = "isEqu";
+			temp[1] = "="
+			tempDec = false;
+			console.log(temp);
+			console.log(stack);
+		}
+
+		// ***** 三角函数部分 ******
+		function calcTri(e,number){
+			switch(e.target.innerHTML){
+				case 'sin':
+					number = Math.sin(number*Math.PI/180);
+					break;
+				case 'cos':
+					number = Math.cos(number*Math.PI/180);
+					break;
+				case 'tan':
+					number = Math.tan(number*Math.PI/180);
+					break;
+				case 'cot':
+					number = 1 / Math.tan(number*Math.PI/180);
+					break;
+			}
+			temp[0] = 'isNum';
+			temp[1] = number;
+			// 保留10位小数精度
+			temp[1]=parseFloat((temp[1]).toFixed(10));
+			console.log(temp[1]);
+			displayChange(temp[1]);
+		}
+
+		var triBtn = document.getElementsByClassName("tri");
+		function inputTri(i){
+			return function(e){
+				if (temp[0]=="isNum"){
+					calcTri(e,temp[1]);
+				}
+				if (temp[0]=="isEqu"){
+					calcTri(e,stack[0]);
+				}
+			}
+		}
+		for (var i = 0; i< triBtn.length; i++){
+			triBtn[i].onclick = inputTri(i);
+		}
+
+		// ***** 回格按钮 ******
+		var cBtn = document.getElementById("backspace");
+		cBtn.onclick = function(e){
+			// 等于号后需要把数字从堆栈中提取出来再回格
+			if(temp[0]=="isEqu"){
+				temp[0]="isNum";
+				temp[1]=stack[0];
+			}
+			temp[1] = String(temp[1]);
+			temp[1] = temp[1].substring(0,temp[1].length-1);
+			temp[1] = parseFloat(temp[1]);
+			if( String(temp[1]).indexOf('.')==-1 ){
+				tempDec =false;
+			}
+			
+			if (isNaN(temp[1])){
+				temp[1] = 0;
+			}
+			displayChange(temp[1]);
+			console.log(temp[1]);
+
+
+		}
+
+		// ***** 清零按钮 ******
+		var ceBtn = document.getElementById("reset");
+		ceBtn.onclick = function(e){
+			resetDisplay();
+			console.log(temp);
+			console.log(stack);
+		}
+	})()
+
+
+	</script>
+</body>
+</html>
